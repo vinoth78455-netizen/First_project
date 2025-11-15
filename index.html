@@ -7,10 +7,31 @@
     <link rel="stylesheet" href="Style.css">
    </head>
    <body>
-    <!-- inline css -->
-    <h1 style="color: rgb(76, 0, 255);">KOTTAI KINGS</h1>
-    <img width="250px" src="shivan.jpg" alt="">
-    <p>Namma ooru</p>
-    <H2>Agarakorakkottai</H2>
-</body>
+
+    <div class="login-box">
+        <h2>KOTTAI KINGS</h2>
+        <input type="text" id="user" placeholder="username">
+        <input type= "password" id="pass" placeholder="password">
+        <button onclick="login()">Login</button>
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        function login() {
+            let u = document.getElementById("user").value;
+            let p = document.getElementById("pass").value;
+            if (u == "admin" && p === "1234")
+        {
+            window.location.href = "home.html"; // success page
+        }
+        else
+        {
+            document.getElementById("msg").innerHTML = "Invalid Username or Password";
+
+            document.getElementById("msg").style.color = "red";
+           }
+        }
+    </script>
+
+    </body>
 </html>
