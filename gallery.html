@@ -1,54 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery Upload</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - Upload</title>
 </head>
 <body>
-    <h2>Gallery - File Upload</h2>
+  <h2>Gallery - File Upload</h2>
 
-    <input type="file" id="fileInput" multiple accept="image/*">
-    <button onclick="uploadFiles()">Upload</button>
+  <input type="file" id="fileInput" multiple accept="image/*" />
+  <button onclick="uploadFiles()">Upload</button>
 
-    <script>
-    function uploadFiles() {
-        const input = document.getElementById('fileInput');
-        const files = input.files;
+  <p><a href="dashboard.html">Go to Dashboard</a></p>
 
-        if (!files.length) {
-            alert("Please select an image");
-            return;
+  <script>
+    async function uploadFiles() {
+      const input = document.getElementById("fileInput");
+      const files = input.files;
+
+      if (!files.length) {
+        alert("Please select at least one image");
+        return;
+      }
+
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+
+      try {
+        const res = await fetch("/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) {
+          alert("Upload failed");
+          return;
         }
 
-        // ஏற்கனவே save பண்ணிய list எடுக்க (KEY = 'images')
-        let saved = JSON.parse(localStorage.getItem('images') || '[]');
-
-        let remaining = files.length;
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                saved.push({
-                    name: file.name,
-                    dataUrl: e.target.result
-                });
-
-                remaining--;
-                // எல்லா file-யும் read ஆகிவிட்ட பிறகு
-                if (remaining === 0) {
-                    // KEY = 'images' (dashboard உடன் match)
-                    localStorage.setItem('images', JSON.stringify(saved));
-                    // upload complete ஆனதும் dashboardக்கு போகும்
-                    window.location.href = "dashboard.html";
-                }
-            };
-
-            reader.readAsDataURL(file);
-        }
+        // upload முடிந்ததும் dashboardக்கு போகும்
+        window.location.href = "dashboard.html";
+      } catch (err) {
+        console.error(err);
+        alert("Error while uploading");
+      }
     }
-    </script>
+  </script>
 </body>
 </html>
