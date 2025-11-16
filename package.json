@@ -1,0 +1,25 @@
+{
+  "name": "first_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinoth78455-netizen/First_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vinoth78455-netizen/First_project/issues"
+  },
+  "homepage": "https://github.com/vinoth78455-netizen/First_project#readme",
+  "dependencies": {
+    "exprss": "^0.0.1-security",
+    "multer": "^2.0.2"
+  }
+}
