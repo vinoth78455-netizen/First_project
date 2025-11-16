@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>dashboard</title>
+  <style>
+    .item {
+        margin-bottom: 20px;
+    }
+    .item img {
+        width: 200px;
+        display: block;
+    }
+    .item button {
+        margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>dashboard – Uploaded Images</h2>
+
+  <div id="list"></div>
+
+  <p><a href="gallery.html">Go to gallery Upload</a></p>
+
+<script>
+const listDiv = document.getElementById('list');
+let saved = JSON.parse(localStorage.getItem('images')) || [];
+
+function renderImages() {
+    listDiv.innerHTML = "";
+
+    if (saved.length === 0) {
+        listDiv.innerHTML = "<p>No images uploaded</p>";
+        return;
+    }
+
+    saved.forEach((img, index) => {
+        const div = document.createElement('div');
+        div.className = "item";
+
+        const image = document.createElement('img');
+        image.src = img.dataUrl;
+
+        const name = document.createElement('p');
+        name.innerText = img.name;
+
+        const delBtn = document.createElement("button");
+        delBtn.innerText = "Delete";
+
+        delBtn.onclick = function () {
+            // array லிருந்து remove
+            saved.splice(index, 1);
+            // localStorage update
+            localStorage.setItem("images", JSON.stringify(saved));
+            // UI refresh
+            renderImages();
+        };
+
+        div.appendChild(image);
+        div.appendChild(name);
+        div.appendChild(delBtn);
+        listDiv.appendChild(div);
+    });
+}
+
+// page open ஆகும் போது images load ஆகணும்
+renderImages();
+</script>
+</body>
+</html>

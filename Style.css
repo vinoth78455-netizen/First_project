@@ -30,3 +30,11 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.item {
+    margin-bottom: 20px;
+}
+.item img {
+    width: 200px;
+    display: block;
+}
